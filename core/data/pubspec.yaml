@@ -1,0 +1,19 @@
+name: data
+publish_to: 'none'
+
+environment:
+  sdk: ^3.2.5
+
+# Add regular dependencies here.
+dependencies:
+
+  locator:
+    path: '../../locator'
+  domain:
+    path: '../domain'
+  network:
+    path: '../../framework/network'
+
+dev_dependencies:
+  lints: ^2.1.0
+  test: ^1.24.0

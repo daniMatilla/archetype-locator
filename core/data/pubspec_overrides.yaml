@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: domain,locator,network
+dependency_overrides:
+  domain:
+    path: ..\\domain
+  locator:
+    path: ..\\..\\locator
+  network:
+    path: ..\\..\\framework\\network

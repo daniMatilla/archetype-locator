@@ -1,0 +1,16 @@
+name: domain
+publish_to: 'none'
+
+environment:
+  sdk: ^3.2.5
+
+# Add regular dependencies here.
+dependencies:
+  equatable: ^2.0.5
+
+  locator:
+    path: '../../locator'
+
+dev_dependencies:
+  lints: ^2.1.0
+  test: ^1.24.0

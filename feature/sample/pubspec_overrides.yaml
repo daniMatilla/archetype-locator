@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: design_system,domain,locator
+dependency_overrides:
+  design_system:
+    path: ..\\..\\core\\design_system
+  domain:
+    path: ..\\..\\core\\domain
+  locator:
+    path: ..\\..\\locator

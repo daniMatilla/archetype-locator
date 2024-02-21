@@ -1,0 +1,10 @@
+name: archetype
+description: "A new Flutter package project."
+publish_to: 'none'
+version: 0.0.1
+
+environment:
+  sdk: ^3.2.5
+
+dev_dependencies:
+  melos: ^4.1.0
