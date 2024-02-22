@@ -19,9 +19,10 @@ class _SampleService implements SampleService {
   String? baseUrl;
 
   @override
-  Future<SampleDto> getSample({int page = 1}) async {
+  Future<SampleDto> getSample({String? force}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'page': page};
+    final queryParameters = <String, dynamic>{r'force': force};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio

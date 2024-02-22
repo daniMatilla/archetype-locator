@@ -1,26 +1,32 @@
-import 'package:design_system/common/services/inavigation.service.dart';
-import 'package:design_system/common/shared_screens.dart';
 import 'package:flutter/material.dart';
-import 'package:locator/locator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample/cubit/sample_cubit.dart';
 
 class SampleScreen extends StatelessWidget {
-  static String route = (SampleScreen).toString().toLowerCase();
-
   const SampleScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<SampleCubit>();
+    final state = cubit.state;
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(route),
+            if (state.sample != null) Text(state.sample!.answer),
             FilledButton(
-              onPressed: () {
-                getIt<INavigationService>().pushScreen(Screens.detail);
-              },
-              child: const Text('Go to detail'),
+              onPressed: () => cubit.request('yes'),
+              child: const Text('Request YES'),
+            ),
+            FilledButton(
+              onPressed: () => cubit.request('maybe'),
+              child: const Text('Request MAYBE'),
+            ),
+            FilledButton(
+              onPressed: () => cubit.request(null),
+              child: const Text('Request'),
             )
           ],
         ),

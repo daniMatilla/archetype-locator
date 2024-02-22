@@ -9,12 +9,15 @@ class SampleRepository implements ISampleRepository {
   final ISampleRemoteDataSource _dataSource;
 
   @override
-  Future<SampleBo> getSample(int page) async {
-    final response = await _dataSource.getSample(page: page);
+  Future<SampleBo> getSample({String? force}) async {
+    final response = await _dataSource.getSample(force: force);
     return response.toBo();
   }
 }
 
 extension on SampleDto {
-  SampleBo toBo() => SampleBo();
+  SampleBo toBo() => SampleBo(
+        answer: answer,
+        urlGif: image,
+      );
 }

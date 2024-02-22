@@ -1,5 +1,5 @@
 import 'package:design_system/common/services/inavigation.service.dart';
-import 'package:design_system/common/shared_screens.dart';
+import 'package:design_system/common/shared_routes.dart';
 
 import '../router/router.dart';
 
@@ -7,7 +7,7 @@ class NavigationService extends INavigationService {
   NavigationService() : super(appRouter);
 
   @override
-  void pushScreen(Screens screen, {Object? params}) {
+  void pushScreen(SharedRoutes screen, {Object? params}) {
     final routeName = AppRouter.routes[screen]?.name;
     if (routeName != null) {
       state.pushNamed(routeName, extra: params);
@@ -15,7 +15,7 @@ class NavigationService extends INavigationService {
   }
 
   @override
-  void setRootScreen(Screens screen) {
+  void setRootScreen(SharedRoutes screen) {
     final routeName = AppRouter.routes[screen]?.name;
     if (routeName != null) {
       state.replace(routeName);

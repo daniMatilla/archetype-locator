@@ -8,7 +8,7 @@ class SampleRemoteDataSource implements ISampleRemoteDataSource {
   final SampleService _sampleService;
 
   @override
-  Future<SampleDto> getSample({int page = 1}) {
-    return _sampleService.getSample(page: page);
+  Future<SampleDto> getSample({String? force}) {
+    return _sampleService.getSample(force: force);
   }
 }

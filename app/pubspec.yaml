@@ -22,6 +22,8 @@ dependencies:
     path: '../core/design_system'
   network:
     path: '../framework/network'
+
+  # features
   sample:
     path: '../feature/sample'
   detail:

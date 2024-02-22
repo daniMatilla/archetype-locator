@@ -10,7 +10,7 @@ abstract class SampleService {
   factory SampleService(Dio dio, {String baseUrl}) = _SampleService;
 
   @GET(sample)
-  Future<SampleDto> getSample({@Query('page') int page = 1});
+  Future<SampleDto> getSample({@Query('force') String? force});
 
   static const String sample = '/api';
 }

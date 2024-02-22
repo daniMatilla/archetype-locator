@@ -1,17 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:design_system/common/shared_screens.dart';
+import 'package:design_system/common/shared_routes.dart';
 import 'package:detail/detail.screen.dart';
 import 'package:sample/sample.screen.dart';
 
 part 'router.routes.dart';
 
-typedef MapRoute = Map<Screens, GoRoute>;
-typedef MapWidget = Map<Screens, Widget>;
+typedef MapRoute = Map<SharedRoutes, GoRoute>;
+typedef MapWidget = Map<SharedRoutes, Widget>;
 
 final appRouter = GoRouter(
-  initialLocation: AppRouter.routes[Screens.home]!.path,
+  initialLocation: AppRouter.routes[SharedRoutes.home]!.path,
   routes: AppRouter.routes.values.toList(),
 );
 
@@ -25,7 +25,7 @@ final class AppRouter {
     callback();
   }
 
-  static MapEntry<Screens, GoRoute> _mapToGoRoute(Screens key, Widget value) => MapEntry(
+  static MapEntry<SharedRoutes, GoRoute> _mapToGoRoute(SharedRoutes key, Widget value) => MapEntry(
         key,
         GoRoute(
           name: key.name,

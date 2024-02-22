@@ -1,4 +1,4 @@
-import 'package:design_system/common/shared_screens.dart';
+import 'package:design_system/common/shared_routes.dart';
 import 'package:locator/locator.dart';
 
 import 'services/inavigation.service.dart';
@@ -6,7 +6,7 @@ import 'services/inavigation.service.dart';
 abstract mixin class Navigation {
   final navigationService = getIt<INavigationService>();
 
-  void pushScreen(Screens screen, {Object? params}) {
+  void pushScreen(SharedRoutes screen, {Object? params}) {
     navigationService.pushScreen(screen, params: params);
   }
 
@@ -14,7 +14,7 @@ abstract mixin class Navigation {
     navigationService.popScreen();
   }
 
-  void setRoot(Screens screen) {
+  void setRoot(SharedRoutes screen) {
     navigationService.setRootScreen(screen);
   }
 }
