@@ -1,0 +1,23 @@
+{
+    "[dart]": {
+        "editor.comments.insertSpace": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [100],
+        "editor.wordWrapColumn": 100,
+        "editor.selectionHighlight": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off",
+        "editor.tabSize": 2,
+        "editor.indentSize": "tabSize",
+        "editor.defaultFormatter": "Dart-Code.dart-code",
+    },
+    "editor.guides.bracketPairsHorizontal": false,
+    "editor.guides.bracketPairs": "active",
+    "dartBarrelFileGenerator.promptName": true,
+    "editor.renderWhitespace": "selection",
+    "dart.debugExternalPackageLibraries": true,
+    "dart.enableSnippets": false,
+    "dart.renameFilesWithClasses": "prompt",
+}
