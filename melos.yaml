@@ -8,10 +8,6 @@ packages:
 
 scripts:
   build_runner:
-    description: 'run build_runner on all packages with build_runner as a dependency'
-    run: melos run build_runner_package --no-select
-
-  build_runner_package:
     description: 'promp in which packages, with build_runner as a dependency, run build_runner. (*) -> run on all'
     run: "flutter packages pub run build_runner build --delete-conflicting-outputs"
     exec:

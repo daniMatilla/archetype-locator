@@ -18,7 +18,7 @@ class SampleScreen extends StatelessWidget {
             Text(route),
             FilledButton(
               onPressed: () {
-                getIt<INavigationService>().pushScreen(SharedRoute.detail);
+                getIt<INavigationService>().pushScreen(Screens.detail);
               },
               child: const Text('Go to detail'),
             )
