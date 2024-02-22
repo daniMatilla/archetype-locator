@@ -1,5 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:locator/locator.dart';
 import 'package:domain/movie/repository/isample.repository.dart';
@@ -13,7 +13,9 @@ class SampleCubit extends Cubit<SampleState> {
   SampleCubit() : super(const SampleState());
 
   request(String? request) async {
+    emit(state.update(loading: true));
+    await Future.delayed(const Duration(seconds: 2));
     final sample = await _repository.getSample(force: request);
-    emit(state.update(sample: sample));
+    emit(state.update(sample: sample, loading: false));
   }
 }
