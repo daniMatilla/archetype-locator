@@ -1,9 +1,11 @@
+import 'package:domain/movie/bo/sample.bo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:locator/locator.dart';
 import 'package:sample/cubit/sample_cubit.dart';
 
-class SampleScreen extends StatelessWidget {
-  const SampleScreen({Key? key}) : super(key: key);
+class SampleScreen extends BaseStatelessWidget {
+  SampleScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,40 +13,48 @@ class SampleScreen extends StatelessWidget {
     final state = cubit.state;
 
     return Scaffold(
-      body: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.expand,
-          children: [
-            state.loading
-                ? const Center(child: CircularProgressIndicator())
-                : state.sample != null
-                    ? Image.network(
-                        state.sample!.urlGif,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          return loadingProgress == null
-                              ? child
-                              : Center(
-                                  child: CircularProgressIndicator(
-                                    value:
-                                        loadingProgress.cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!,
-                                  ),
-                                );
-                        },
-                      )
-                    : Container(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: _Text(state: state)),
-                _Buttons(cubit: cubit),
-              ],
-            ),
-          ],
-        ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          state.sample != null ? _GifView(sample: state.sample!) : const Center(child: Text('Request a 🎁')),
+          Column(
+            children: [
+              const Spacer(),
+              _Buttons(cubit: cubit),
+            ],
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class _GifView extends StatelessWidget {
+  const _GifView({required this.sample});
+  final SampleBo sample;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      sample.urlGif,
+      fit: BoxFit.cover,
+      loadingBuilder: (context, child, loadingProgress) {
+        return loadingProgress != null
+            ? const Center(child: CircularProgressIndicator())
+            : Stack(
+                alignment: Alignment.center,
+                fit: StackFit.expand,
+                children: [
+                  child,
+                  Center(
+                    child: Text(
+                      sample.answer,
+                      style: const TextStyle(fontSize: 124, fontWeight: FontWeight.bold, color: Colors.white24),
+                    ),
+                  )
+                ],
+              );
+      },
     );
   }
 }
@@ -55,50 +65,17 @@ class _Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 16,
-        left: 16,
-        right: 16,
-      ),
+    return SafeArea(
+      top: false,
+      minimum: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FilledButton(
-            onPressed: () => cubit.request('yes'),
-            child: const Text('YES'),
-          ),
-          FilledButton(
-            onPressed: () => cubit.request(null),
-            child: const Text('?'),
-          ),
-          FilledButton(
-            onPressed: () => cubit.request('maybe'),
-            child: const Text('MAYBE'),
-          ),
+          FilledButton(onPressed: () => cubit.request('yes'), child: const Text('YES')),
+          FilledButton(onPressed: () => cubit.request(null), child: const Text('?')),
+          FilledButton(onPressed: () => cubit.request('maybe'), child: const Text('MAYBE')),
         ],
       ),
-    );
-  }
-}
-
-class _Text extends StatelessWidget {
-  const _Text({required this.state});
-  final SampleState state;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: (state.sample != null)
-          ? Text(
-              state.sample!.answer,
-              style: const TextStyle(
-                fontSize: 124,
-                fontWeight: FontWeight.bold,
-                color: Colors.white24,
-              ),
-            )
-          : null,
     );
   }
 }
