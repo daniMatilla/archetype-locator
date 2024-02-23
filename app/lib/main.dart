@@ -4,9 +4,6 @@ import 'package:app/di/repository.module.dart';
 import 'package:app/di/service.module.dart';
 import 'package:flutter/material.dart';
 import 'package:design_system/theme.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locator/locator.dart';
-import 'package:sample/cubit/sample_cubit.dart';
 
 import 'router/router.dart';
 
