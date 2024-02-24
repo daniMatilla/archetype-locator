@@ -13,6 +13,8 @@ dependencies:
     path: '../domain'
   network:
     path: '../../framework/network'
+  database:
+    path: '../../framework/database'
 
 dev_dependencies:
   lints: ^2.1.0

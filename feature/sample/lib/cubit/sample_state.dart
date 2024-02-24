@@ -9,9 +9,8 @@ class SampleState extends Equatable {
   @override
   List<Object?> get props => [sample];
 
-  SampleState update({
+  SampleState copy({
     SampleBo? sample,
-    bool? loading,
   }) =>
       SampleState(
         sample: sample ?? this.sample,

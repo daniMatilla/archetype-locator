@@ -22,7 +22,7 @@ final class AppRouter {
   static MapRoute routes = {};
 
   static void registerRoutes({
-    required Function callback,
+    required Function() callback,
   }) {
     routes.addAll(_appRoutes.map(_mapToGoRoute));
     callback();

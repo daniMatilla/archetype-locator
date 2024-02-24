@@ -1,22 +1,20 @@
-import 'package:app/di/cubit.module.dart';
-import 'package:app/di/remote_datasource.module.dart';
-import 'package:app/di/repository.module.dart';
-import 'package:app/di/service.module.dart';
 import 'package:flutter/material.dart';
 import 'package:design_system/theme.dart';
 
+import 'di/modules.barrel.dart';
 import 'router/router.dart';
 
 setUpModules() {
-  // localDataSourceModule;
+  localDataSourceModule;
   remoteDataSourceModule;
   serviceModule;
   repositoryModule;
-  // useCaseModule;
+  useCaseModule;
   cubitModule;
 }
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   AppRouter.registerRoutes(callback: setUpModules);
   runApp(const MainApp());
 }

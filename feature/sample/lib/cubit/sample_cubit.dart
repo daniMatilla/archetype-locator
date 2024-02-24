@@ -11,8 +11,7 @@ class SampleCubit extends Cubit<SampleState> {
   ISampleRepository repository;
 
   void request(String? request) async {
-    emit(state.update(loading: true));
     final sample = await repository.getSample(force: request);
-    emit(state.update(sample: sample, loading: false));
+    emit(state.copy(sample: sample));
   }
 }

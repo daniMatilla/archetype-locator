@@ -9,8 +9,8 @@ part 'sample.service.g.dart';
 abstract class SampleService {
   factory SampleService(Dio dio, {String baseUrl}) = _SampleService;
 
-  @GET(sample)
+  @GET(api)
   Future<SampleDto> getSample({@Query('force') String? force});
 
-  static const String sample = '/api';
+  static const String api = '/api';
 }
