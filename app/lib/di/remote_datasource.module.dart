@@ -7,13 +7,13 @@ import 'package:network/services/services.barrel.dart';
 get remoteDataSourceModule => {
       getIt.registerSingleton(DioClient().dio()),
 
-      // #region SERVICES
+      //#region SERVICES
 
       getIt.registerSingleton(SampleService(get())),
-      // #endregion
+      //#endregion
 
-      // #region REMOTE_DATASOURCES
+      //#region REMOTE_DATASOURCES
 
       getIt.registerSingleton<ISampleRemoteDataSource>(SampleRemoteDataSource(get())),
-      // #endregion
+      //#endregion
     };

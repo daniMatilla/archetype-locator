@@ -1,5 +1,5 @@
 import 'package:network/dto/sample.dto.dart';
 
-abstract class ISampleRemoteDataSource {
+abstract interface class ISampleRemoteDataSource {
   Future<SampleDto> getSample({String? force});
 }

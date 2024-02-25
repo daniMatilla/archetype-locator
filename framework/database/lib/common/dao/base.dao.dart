@@ -1,14 +1,15 @@
-import 'package:database/common/entity/base.entity.dart';
 import 'package:isar/isar.dart';
 
-abstract class BaseDao<T extends BaseEntity> {
-  List<T> getAll();
+import 'package:database/common/entity/base.entity.dart';
 
-  T get({required Id id});
+abstract interface class BaseDao<T extends BaseEntity> {
+  Future<List<T>> getAll();
 
-  bool insert({required List<T> samples});
+  Future<T> get({required Id id});
 
-  bool update({required T sample});
+  Future<List<int>> insert({required List<T> samples});
 
-  Id delete({required Id id});
+  Future<bool> update({required T sample});
+
+  Future<Id> delete({required Id id});
 }
