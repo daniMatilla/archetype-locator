@@ -13,13 +13,14 @@ class SampleRepository implements ISampleRepository {
 
   @override
   Future<SampleBo> getRemoteSample({String? force}) async {
-    final response = await _remoteDataSource.getSample(force: force);
-    return response.toBo();
+    final result = await _remoteDataSource.getSample(force: force);
+    return result.toBo();
   }
 
   @override
-  Future<SampleBo> getLocalSample({required int id}) {
-    throw UnimplementedError();
+  Future<SampleBo?> getLocalSample({required String gif}) async {
+    final result = await _localDataSource.getSample(gif: gif);
+    return result?.toBo();
   }
 
   @override
@@ -28,8 +29,8 @@ class SampleRepository implements ISampleRepository {
   }
 
   @override
-  Future<void> removeLocalSample({required int id}) {
-    throw UnimplementedError();
+  Future<bool> removeLocalSample({required String gif}) async {
+    return await _localDataSource.removeSample(gif: gif);
   }
 
   @override

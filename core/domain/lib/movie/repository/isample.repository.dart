@@ -4,7 +4,7 @@ abstract class ISampleRepository {
   Future<SampleBo> getRemoteSample({String? force});
 
   Future<List<SampleBo>> getLocalSamples();
-  Future<SampleBo> getLocalSample({required int id});
+  Future<SampleBo?> getLocalSample({required String gif});
   Future<int> saveLocalSample({required SampleBo sample});
-  Future<void> removeLocalSample({required int id});
+  Future<bool> removeLocalSample({required String gif});
 }

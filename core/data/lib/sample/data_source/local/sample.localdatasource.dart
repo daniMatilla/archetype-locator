@@ -8,13 +8,13 @@ class SampleLocalDataSource implements ISampleLocalDataSource {
   final SampleDao _sampleDao;
 
   @override
-  Future<SampleEntity> getSample({required int id}) {
-    throw UnimplementedError();
+  Future<SampleEntity?> getSample({required String gif}) {
+    return _sampleDao.getByGif(gif: gif);
   }
 
   @override
-  Future<int> saveSample({required SampleEntity sample}) async {
-    return await _sampleDao.save(entity: sample);
+  Future<int> saveSample({required SampleEntity sample}) {
+    return _sampleDao.save(entity: sample);
   }
 
   @override
@@ -23,7 +23,7 @@ class SampleLocalDataSource implements ISampleLocalDataSource {
   }
 
   @override
-  Future<void> removeSample({required int id}) {
-    throw UnimplementedError();
+  Future<bool> removeSample({required String gif}) {
+    return _sampleDao.deleteByGif(gif: gif);
   }
 }

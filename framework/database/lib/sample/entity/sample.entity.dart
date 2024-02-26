@@ -16,6 +16,7 @@ class SampleEntity extends BaseEntity {
   Id get id => super.id;
   @Enumerated(EnumType.name)
   final Answer answer;
+  @Index(unique: true, type: IndexType.value)
   final String gif;
 
   static const sampleTableName = 'samples';

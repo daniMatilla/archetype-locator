@@ -1,7 +1,8 @@
-import 'package:domain/movie/bo/sample.bo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:locator/locator.dart';
+import 'package:domain/movie/bo/sample.bo.dart';
 import 'package:sample/cubit/sample_cubit.dart';
 
 class SampleScreen extends BaseStatelessWidget {
@@ -17,10 +18,14 @@ class SampleScreen extends BaseStatelessWidget {
       appBar: AppBar(
         forceMaterialTransparency: true,
         actions: [
-          IconButton(
-            onPressed: () => cubit.toggleFavorite(state.sample),
-            icon: const Icon(Icons.favorite_border),
-          ),
+          if (state.sample != null)
+            IconButton(
+              onPressed: () => cubit.toggleFavorite(state.sample!),
+              icon: Icon(
+                state.sample!.isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: state.sample!.isFavorite ? Colors.red : null,
+              ),
+            ),
         ],
       ),
       body: Stack(

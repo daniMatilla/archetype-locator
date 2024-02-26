@@ -8,19 +8,24 @@ class SampleDao implements BaseDao<SampleEntity> {
   SampleDao(this.dbInstance);
   final Future<Isar> dbInstance;
 
+  Future<SampleEntity?> getByGif({required String gif}) async {
+    final db = await dbInstance;
+    return db.sampleEntitys.getByGif(gif);
+  }
+
+  Future<bool> deleteByGif({required String gif}) async {
+    final db = await dbInstance;
+    return db.writeTxn(() => db.sampleEntitys.deleteByGif(gif));
+  }
+
   @override
   Future<int> save({required SampleEntity entity}) async {
     final db = await dbInstance;
-    return db.writeTxnSync(() => db.sampleEntitys.putSync(entity));
+    return db.writeTxn(() => db.sampleEntitys.put(entity));
   }
 
   @override
-  Future<Id> delete({required Id id}) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<SampleEntity> get({required Id id}) {
+  Future<SampleEntity> getById({required Id id}) {
     throw UnimplementedError();
   }
 
@@ -30,7 +35,7 @@ class SampleDao implements BaseDao<SampleEntity> {
   }
 
   @override
-  Future<bool> update({required SampleEntity entity}) {
+  Future<bool> delete({required Id id}) {
     throw UnimplementedError();
   }
 }

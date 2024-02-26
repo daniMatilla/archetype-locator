@@ -34,7 +34,21 @@ const SampleEntitySchema = CollectionSchema(
   deserialize: _sampleEntityDeserialize,
   deserializeProp: _sampleEntityDeserializeProp,
   idName: r'sample',
-  indexes: {},
+  indexes: {
+    r'gif': IndexSchema(
+      id: -4383928001891450869,
+      name: r'gif',
+      unique: true,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'gif',
+          type: IndexType.value,
+          caseSensitive: true,
+        )
+      ],
+    )
+  },
   links: {},
   embeddedSchemas: {},
   getId: _sampleEntityGetId,
@@ -119,11 +133,74 @@ List<IsarLinkBase<dynamic>> _sampleEntityGetLinks(SampleEntity object) {
 void _sampleEntityAttach(
     IsarCollection<dynamic> col, Id id, SampleEntity object) {}
 
+extension SampleEntityByIndex on IsarCollection<SampleEntity> {
+  Future<SampleEntity?> getByGif(String gif) {
+    return getByIndex(r'gif', [gif]);
+  }
+
+  SampleEntity? getByGifSync(String gif) {
+    return getByIndexSync(r'gif', [gif]);
+  }
+
+  Future<bool> deleteByGif(String gif) {
+    return deleteByIndex(r'gif', [gif]);
+  }
+
+  bool deleteByGifSync(String gif) {
+    return deleteByIndexSync(r'gif', [gif]);
+  }
+
+  Future<List<SampleEntity?>> getAllByGif(List<String> gifValues) {
+    final values = gifValues.map((e) => [e]).toList();
+    return getAllByIndex(r'gif', values);
+  }
+
+  List<SampleEntity?> getAllByGifSync(List<String> gifValues) {
+    final values = gifValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'gif', values);
+  }
+
+  Future<int> deleteAllByGif(List<String> gifValues) {
+    final values = gifValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'gif', values);
+  }
+
+  int deleteAllByGifSync(List<String> gifValues) {
+    final values = gifValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'gif', values);
+  }
+
+  Future<Id> putByGif(SampleEntity object) {
+    return putByIndex(r'gif', object);
+  }
+
+  Id putByGifSync(SampleEntity object, {bool saveLinks = true}) {
+    return putByIndexSync(r'gif', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllByGif(List<SampleEntity> objects) {
+    return putAllByIndex(r'gif', objects);
+  }
+
+  List<Id> putAllByGifSync(List<SampleEntity> objects,
+      {bool saveLinks = true}) {
+    return putAllByIndexSync(r'gif', objects, saveLinks: saveLinks);
+  }
+}
+
 extension SampleEntityQueryWhereSort
     on QueryBuilder<SampleEntity, SampleEntity, QWhere> {
   QueryBuilder<SampleEntity, SampleEntity, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhere> anyGif() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'gif'),
+      );
     });
   }
 }
@@ -194,6 +271,142 @@ extension SampleEntityQueryWhere
         upper: upperId,
         includeUpper: includeUpper,
       ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifEqualTo(
+      String gif) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'gif',
+        value: [gif],
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifNotEqualTo(
+      String gif) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'gif',
+              lower: [],
+              upper: [gif],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'gif',
+              lower: [gif],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'gif',
+              lower: [gif],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'gif',
+              lower: [],
+              upper: [gif],
+              includeUpper: false,
+            ));
+      }
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifGreaterThan(
+    String gif, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'gif',
+        lower: [gif],
+        includeLower: include,
+        upper: [],
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifLessThan(
+    String gif, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'gif',
+        lower: [],
+        upper: [gif],
+        includeUpper: include,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifBetween(
+    String lowerGif,
+    String upperGif, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'gif',
+        lower: [lowerGif],
+        includeLower: includeLower,
+        upper: [upperGif],
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifStartsWith(
+      String GifPrefix) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'gif',
+        lower: [GifPrefix],
+        upper: ['$GifPrefix\u{FFFFF}'],
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'gif',
+        value: [''],
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterWhereClause> gifIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.lessThan(
+              indexName: r'gif',
+              upper: [''],
+            ))
+            .addWhereClause(IndexWhereClause.greaterThan(
+              indexName: r'gif',
+              lower: [''],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.greaterThan(
+              indexName: r'gif',
+              lower: [''],
+            ))
+            .addWhereClause(IndexWhereClause.lessThan(
+              indexName: r'gif',
+              upper: [''],
+            ));
+      }
     });
   }
 }
