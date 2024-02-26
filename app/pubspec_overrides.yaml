@@ -1,10 +1,9 @@
 # melos_managed_dependency_overrides: database
-# melos_managed_dependency_overrides: data,design_system,detail,domain,locator,network,sample
 dependency_overrides:
   data:
     path: ../core/data
   database:
-    path: ..\\framework\\database
+    path: ../framework/database
   design_system:
     path: ../core/design_system
   detail:

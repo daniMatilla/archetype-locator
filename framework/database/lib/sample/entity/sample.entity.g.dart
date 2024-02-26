@@ -14,8 +14,8 @@ extension GetSampleEntityCollection on Isar {
 }
 
 const SampleEntitySchema = CollectionSchema(
-  name: r'Samples',
-  id: 657566907527539070,
+  name: r'samples',
+  id: 2498640880145511601,
   properties: {
     r'answer': PropertySchema(
       id: 0,
@@ -23,9 +23,9 @@ const SampleEntitySchema = CollectionSchema(
       type: IsarType.string,
       enumMap: _SampleEntityanswerEnumValueMap,
     ),
-    r'urlGif': PropertySchema(
+    r'gif': PropertySchema(
       id: 1,
-      name: r'urlGif',
+      name: r'gif',
       type: IsarType.string,
     )
   },
@@ -33,7 +33,7 @@ const SampleEntitySchema = CollectionSchema(
   serialize: _sampleEntitySerialize,
   deserialize: _sampleEntityDeserialize,
   deserializeProp: _sampleEntityDeserializeProp,
-  idName: r'id',
+  idName: r'sample',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -50,12 +50,7 @@ int _sampleEntityEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.answer.name.length * 3;
-  {
-    final value = object.urlGif;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.gif.length * 3;
   return bytesCount;
 }
 
@@ -66,7 +61,7 @@ void _sampleEntitySerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.answer.name);
-  writer.writeString(offsets[1], object.urlGif);
+  writer.writeString(offsets[1], object.gif);
 }
 
 SampleEntity _sampleEntityDeserialize(
@@ -75,11 +70,12 @@ SampleEntity _sampleEntityDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = SampleEntity();
-  object.answer =
-      _SampleEntityanswerValueEnumMap[reader.readStringOrNull(offsets[0])] ??
-          Answer.yes;
-  object.urlGif = reader.readStringOrNull(offsets[1]);
+  final object = SampleEntity(
+    answer:
+        _SampleEntityanswerValueEnumMap[reader.readStringOrNull(offsets[0])] ??
+            Answer.yes,
+    gif: reader.readString(offsets[1]),
+  );
   return object;
 }
 
@@ -95,7 +91,7 @@ P _sampleEntityDeserializeProp<P>(
               reader.readStringOrNull(offset)] ??
           Answer.yes) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -339,11 +335,143 @@ extension SampleEntityQueryFilter
     });
   }
 
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'gif',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
+      gifGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'gif',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'gif',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'gif',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'gif',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'gif',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'gif',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'gif',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> gifIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'gif',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
+      gifIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'gif',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
+        property: r'sample',
         value: value,
       ));
     });
@@ -356,7 +484,7 @@ extension SampleEntityQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'id',
+        property: r'sample',
         value: value,
       ));
     });
@@ -369,7 +497,7 @@ extension SampleEntityQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'id',
+        property: r'sample',
         value: value,
       ));
     });
@@ -383,164 +511,11 @@ extension SampleEntityQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
+        property: r'sample',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'urlGif',
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'urlGif',
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> urlGifEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'urlGif',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'urlGif',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'urlGif',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> urlGifBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'urlGif',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'urlGif',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'urlGif',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'urlGif',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition> urlGifMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'urlGif',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'urlGif',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterFilterCondition>
-      urlGifIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'urlGif',
-        value: '',
       ));
     });
   }
@@ -566,15 +541,15 @@ extension SampleEntityQuerySortBy
     });
   }
 
-  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> sortByUrlGif() {
+  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> sortByGif() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'urlGif', Sort.asc);
+      return query.addSortBy(r'gif', Sort.asc);
     });
   }
 
-  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> sortByUrlGifDesc() {
+  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> sortByGifDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'urlGif', Sort.desc);
+      return query.addSortBy(r'gif', Sort.desc);
     });
   }
 }
@@ -593,27 +568,27 @@ extension SampleEntityQuerySortThenBy
     });
   }
 
+  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> thenByGif() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'gif', Sort.asc);
+    });
+  }
+
+  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> thenByGifDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'gif', Sort.desc);
+    });
+  }
+
   QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(r'sample', Sort.asc);
     });
   }
 
   QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> thenByUrlGif() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'urlGif', Sort.asc);
-    });
-  }
-
-  QueryBuilder<SampleEntity, SampleEntity, QAfterSortBy> thenByUrlGifDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'urlGif', Sort.desc);
+      return query.addSortBy(r'sample', Sort.desc);
     });
   }
 }
@@ -627,10 +602,10 @@ extension SampleEntityQueryWhereDistinct
     });
   }
 
-  QueryBuilder<SampleEntity, SampleEntity, QDistinct> distinctByUrlGif(
+  QueryBuilder<SampleEntity, SampleEntity, QDistinct> distinctByGif(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'urlGif', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'gif', caseSensitive: caseSensitive);
     });
   }
 }
@@ -639,7 +614,7 @@ extension SampleEntityQueryProperty
     on QueryBuilder<SampleEntity, SampleEntity, QQueryProperty> {
   QueryBuilder<SampleEntity, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'sample');
     });
   }
 
@@ -649,9 +624,9 @@ extension SampleEntityQueryProperty
     });
   }
 
-  QueryBuilder<SampleEntity, String?, QQueryOperations> urlGifProperty() {
+  QueryBuilder<SampleEntity, String, QQueryOperations> gifProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'urlGif');
+      return query.addPropertyName(r'gif');
     });
   }
 }

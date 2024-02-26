@@ -1,12 +1,12 @@
 import 'package:locator/locator.dart';
-import 'package:database/dao/sample.dao.dart';
 
-import 'package:database/database.service.dart';
+import 'package:database/seed.database.dart';
+import 'package:database/sample/dao/sample.dao.dart';
 import 'package:data/sample/data_source/local/isample.localdatasource.dart';
 import 'package:data/sample/data_source/local/sample.localdatasource.dart';
 
 get localDataSourceModule => {
-      getIt.registerSingleton(DataBaseService().db),
+      getIt.registerSingleton(SeedDataBase().db),
 
       //#region DAOs
 

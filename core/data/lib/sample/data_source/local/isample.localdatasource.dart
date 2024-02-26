@@ -1,8 +1,8 @@
-import 'package:database/entity/schemas.barrel.dart';
+import 'package:database/sample/entity/sample.entity.dart';
 
 abstract interface class ISampleLocalDataSource {
   Future<List<SampleEntity>> getSamples();
   Future<SampleEntity> getSample({required int id});
-  Future<List<int>> saveSample({required SampleEntity sample});
+  Future<int> saveSample({required SampleEntity sample});
   Future<void> removeSample({required int id});
 }

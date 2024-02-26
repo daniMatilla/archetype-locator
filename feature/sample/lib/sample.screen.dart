@@ -13,6 +13,16 @@ class SampleScreen extends BaseStatelessWidget {
     final state = cubit.state;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        actions: [
+          IconButton(
+            onPressed: () => cubit.toggleFavorite(state.sample),
+            icon: const Icon(Icons.favorite_border),
+          ),
+        ],
+      ),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [

@@ -2,12 +2,12 @@ import 'package:isar/isar.dart';
 import 'package:locator/locator.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'entity/schemas.barrel.dart';
+import 'sample/entity/sample.entity.dart';
 
-class DataBaseService {
+class SeedDataBase {
   late Future<Isar> db;
 
-  DataBaseService() {
+  SeedDataBase() {
     db = openDB();
   }
 

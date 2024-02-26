@@ -1,7 +1,7 @@
-import 'package:database/dao/sample.dao.dart';
-import 'package:database/entity/sample/sample.entity.dart';
-
 import 'isample.localdatasource.dart';
+
+import 'package:database/sample/dao/sample.dao.dart';
+import 'package:database/sample/entity/sample.entity.dart';
 
 class SampleLocalDataSource implements ISampleLocalDataSource {
   SampleLocalDataSource(this._sampleDao);
@@ -9,24 +9,21 @@ class SampleLocalDataSource implements ISampleLocalDataSource {
 
   @override
   Future<SampleEntity> getSample({required int id}) {
-    // TODO: implement getSample
     throw UnimplementedError();
   }
 
   @override
+  Future<int> saveSample({required SampleEntity sample}) async {
+    return await _sampleDao.save(entity: sample);
+  }
+
+  @override
   Future<List<SampleEntity>> getSamples() {
-    // TODO: implement getSamples
     throw UnimplementedError();
   }
 
   @override
   Future<void> removeSample({required int id}) {
-    // TODO: implement removeSample
     throw UnimplementedError();
-  }
-
-  @override
-  Future<List<int>> saveSample({required SampleEntity sample}) async {
-    return await _sampleDao.insert(samples: [sample]);
   }
 }
