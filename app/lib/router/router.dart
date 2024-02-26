@@ -1,12 +1,13 @@
+import 'package:favorite/cubit/favorite_cubit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:design_system/common/shared_routes.dart';
-import 'package:detail/detail.screen.dart';
 import 'package:locator/locator.dart';
 import 'package:sample/cubit/sample_cubit.dart';
 import 'package:sample/sample.screen.dart';
+import 'package:favorite/screens/favorite.barrel.dart';
 
 part 'router.routes.dart';
 

@@ -17,13 +17,17 @@ class SampleScreen extends BaseStatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         forceMaterialTransparency: true,
+        leading: IconButton(
+          onPressed: () => cubit.openFavorites(),
+          icon: const Icon(Icons.list_alt),
+        ),
         actions: [
           if (state.sample != null)
             IconButton(
               onPressed: () => cubit.toggleFavorite(state.sample!),
               icon: Icon(
-                state.sample!.isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: state.sample!.isFavorite ? Colors.red : null,
+                state.isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: state.isFavorite ? Colors.red : null,
               ),
             ),
         ],

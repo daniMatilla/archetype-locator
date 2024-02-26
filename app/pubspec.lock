@@ -70,13 +70,6 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
-  detail:
-    dependency: "direct main"
-    description:
-      path: "../feature/detail"
-      relative: true
-    source: path
-    version: "0.0.0"
   dio:
     dependency: transitive
     description:
@@ -108,6 +101,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  favorite:
+    dependency: "direct main"
+    description:
+      path: "../feature/favorite"
+      relative: true
+    source: path
+    version: "0.0.0"
   ffi:
     dependency: transitive
     description:

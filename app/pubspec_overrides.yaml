@@ -1,4 +1,4 @@
-# melos_managed_dependency_overrides: database
+# melos_managed_dependency_overrides: database,favorite
 dependency_overrides:
   data:
     path: ../core/data
@@ -6,10 +6,10 @@ dependency_overrides:
     path: ../framework/database
   design_system:
     path: ../core/design_system
-  detail:
-    path: ../feature/detail
   domain:
     path: ../core/domain
+  favorite:
+    path: ../feature/favorite
   locator:
     path: ../locator
   network:

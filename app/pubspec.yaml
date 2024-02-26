@@ -27,8 +27,8 @@ dependencies:
   # features
   sample:
     path: '../feature/sample'
-  detail:
-    path: '../feature/detail'
+  favorite:
+    path: '../feature/favorite'
 
 dev_dependencies:
   flutter_test:
