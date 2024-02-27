@@ -6,4 +6,11 @@ final class FavoriteState extends Equatable {
 
   @override
   List<Object?> get props => [samples];
+
+  FavoriteState update({
+    List<SampleBo>? samples,
+  }) =>
+      FavoriteState(
+        samples: samples ?? this.samples,
+      );
 }

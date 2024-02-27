@@ -19,7 +19,7 @@ class SampleLocalDataSource implements ISampleLocalDataSource {
 
   @override
   Future<List<SampleEntity>> getSamples() {
-    throw UnimplementedError();
+    return _sampleDao.getAll();
   }
 
   @override

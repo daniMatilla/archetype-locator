@@ -24,8 +24,9 @@ class SampleRepository implements ISampleRepository {
   }
 
   @override
-  Future<List<SampleBo>> getLocalSamples() {
-    throw UnimplementedError();
+  Future<List<SampleBo>> getLocalSamples() async {
+    final result = await _localDataSource.getSamples();
+    return result.map((e) => e.toBo()).toList();
   }
 
   @override

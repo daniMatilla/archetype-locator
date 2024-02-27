@@ -30,8 +30,9 @@ class SampleDao implements BaseDao<SampleEntity> {
   }
 
   @override
-  Future<List<SampleEntity>> getAll() {
-    throw UnimplementedError();
+  Future<List<SampleEntity>> getAll() async {
+    final db = await dbInstance;
+    return db.sampleEntitys.where().findAll();
   }
 
   @override
