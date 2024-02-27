@@ -17,10 +17,6 @@ class SampleScreen extends BaseStatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         forceMaterialTransparency: true,
-        leading: IconButton(
-          onPressed: () => cubit.openFavorites(),
-          icon: const Icon(Icons.list_alt),
-        ),
         actions: [
           if (state.sample != null)
             IconButton(
@@ -32,18 +28,8 @@ class SampleScreen extends BaseStatelessWidget {
             ),
         ],
       ),
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          state.sample != null ? _GifView(sample: state.sample!) : const Center(child: Text('Request a 🎁')),
-          Column(
-            children: [
-              const Spacer(),
-              _Buttons(cubit: cubit),
-            ],
-          ),
-        ],
-      ),
+      body: state.sample != null ? _GifView(sample: state.sample!) : const Center(child: Text('Request a 🎁')),
+      floatingActionButton: _Buttons(cubit: cubit),
     );
   }
 }
@@ -84,17 +70,14 @@ class _Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      minimum: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          FilledButton(onPressed: () => cubit.request('yes'), child: const Text('YES')),
-          FilledButton(onPressed: () => cubit.request(null), child: const Text('?')),
-          FilledButton(onPressed: () => cubit.request('maybe'), child: const Text('MAYBE')),
-        ],
-      ),
+    return Wrap(
+      spacing: 16,
+      direction: Axis.vertical,
+      children: [
+        FloatingActionButton(onPressed: () => cubit.request('yes'), child: const Text('YES')),
+        FloatingActionButton(onPressed: () => cubit.request(null), child: const Text('?')),
+        FloatingActionButton(onPressed: () => cubit.request('maybe'), child: const Text('MAYBE')),
+      ],
     );
   }
 }

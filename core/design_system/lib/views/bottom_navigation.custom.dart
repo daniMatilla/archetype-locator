@@ -15,7 +15,8 @@ class CustomBottomNavigation extends StatelessWidget {
   List<BottomNavigationBarItem> _bottomBarItems() =>
       items.map((e) => BottomNavigationBarItem(icon: Icon(e.icon), label: e.name)).toList();
 
-  SharedRoutes _currentLocation(String location) => items.firstWhere((element) => element.path == location);
+  SharedRoutes _currentLocation(String location) =>
+      items.firstWhere((element) => element.path == location, orElse: () => SharedRoutes.home);
 
   @override
   Widget build(BuildContext context) {
