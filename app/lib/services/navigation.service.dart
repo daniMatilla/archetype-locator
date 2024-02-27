@@ -8,7 +8,7 @@ class NavigationService extends INavigationService {
 
   @override
   void pushScreen(SharedRoutes screen, {Object? params}) {
-    final routeName = AppRouter.routes[screen]?.name;
+    final routeName = AppRouter.appRoutes[screen]?.name;
     if (routeName != null) {
       state.pushNamed(routeName, extra: params);
     }
@@ -16,9 +16,9 @@ class NavigationService extends INavigationService {
 
   @override
   void setRootScreen(SharedRoutes screen) {
-    final routeName = AppRouter.routes[screen]?.name;
+    final routeName = AppRouter.appRoutes[screen]?.name;
     if (routeName != null) {
-      state.replace(routeName);
+      state.replaceNamed(routeName);
     }
   }
 
@@ -26,5 +26,5 @@ class NavigationService extends INavigationService {
   void popScreen() => state.pop();
 
   @override
-  String location() => '${state.routeInformationProvider.value.uri}';
+  String get location => '${state.routeInformationProvider.value.uri}';
 }

@@ -10,7 +10,7 @@ class FavoriteScreen extends BaseStatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text(getIt<INavigationService>().location().toString()),
+        child: Text(getIt<INavigationService>().location),
       ),
     );
   }

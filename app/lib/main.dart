@@ -15,7 +15,7 @@ setUpModules() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AppRouter.registerRoutes(callback: setUpModules);
+  AppRouter.registerRoutes(callback: setUpModules, useShellRoute: true);
   runApp(const MainApp());
 }
 

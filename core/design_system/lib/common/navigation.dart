@@ -14,7 +14,7 @@ abstract mixin class Navigation {
     navigationService.popScreen();
   }
 
-  void setRoot(SharedRoutes screen) {
+  void setRootScreen(SharedRoutes screen) {
     navigationService.setRootScreen(screen);
   }
 }
