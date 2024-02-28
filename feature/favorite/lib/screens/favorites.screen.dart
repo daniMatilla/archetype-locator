@@ -13,15 +13,27 @@ class FavoritesScreen extends BaseStatelessWidget {
     final cubit = context.watch<FavoriteCubit>();
     final state = cubit.state;
 
-    return Center(
-      child: state.samples != null ? _CustomMasonry(samples: state.samples!) : const Text('🥺 Without favorites...'),
+    return Scaffold(
+      appBar: useShellRoute ? null : AppBar(),
+      body: Center(
+        child: state.samples != null
+            ? _CustomMasonry(
+                samples: state.samples!,
+                onTabItem: cubit.showDetail,
+              )
+            : const Text('🥺 Without favorites...'),
+      ),
     );
   }
 }
 
 class _CustomMasonry extends StatelessWidget {
-  const _CustomMasonry({required this.samples});
+  const _CustomMasonry({
+    required this.samples,
+    required this.onTabItem,
+  });
   final List<SampleBo> samples;
+  final Function(SampleBo) onTabItem;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +45,7 @@ class _CustomMasonry extends StatelessWidget {
       itemBuilder: (context, index) {
         final sample = samples[index];
         return GestureDetector(
-          onTap: () {},
+          onTap: () => onTabItem(sample),
           child: AspectRatio(
             aspectRatio: ((index % 3 + 1) > 1.7) ? 9 / 16 : 9 / 9,
             child: Container(

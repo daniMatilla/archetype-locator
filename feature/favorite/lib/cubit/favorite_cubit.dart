@@ -1,4 +1,5 @@
 import 'package:design_system/common/navigation.dart';
+import 'package:design_system/common/shared_routes.dart';
 import 'package:domain/movie/repository/isample.repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,4 +16,6 @@ class FavoriteCubit extends Cubit<FavoriteState> with Navigation {
     final localSamples = await _repository.getLocalSamples();
     emit(state.update(samples: localSamples));
   }
+
+  showDetail(SampleBo sample) => pushScreen(SharedRoutes.detail);
 }

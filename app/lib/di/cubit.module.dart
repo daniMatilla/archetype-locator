@@ -3,6 +3,6 @@ import 'package:locator/locator.dart';
 import 'package:sample/cubit/sample_cubit.dart';
 
 get cubitModule => {
-      getIt.registerFactory<SampleCubit>(() => SampleCubit(get())),
-      getIt.registerFactory<FavoriteCubit>(() => FavoriteCubit(get())),
+      getIt.registerSingleton<SampleCubit>(SampleCubit(get())),
+      getIt.registerSingleton<FavoriteCubit>(FavoriteCubit(get())),
     };

@@ -17,6 +17,12 @@ class SampleScreen extends BaseStatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         forceMaterialTransparency: true,
+        leading: useShellRoute
+            ? null
+            : IconButton(
+                onPressed: () => cubit.showFavorites(),
+                icon: const Icon(Icons.image_search_sharp),
+              ),
         actions: [
           if (state.sample != null)
             IconButton(
@@ -74,9 +80,9 @@ class _Buttons extends StatelessWidget {
       spacing: 16,
       direction: Axis.vertical,
       children: [
-        FloatingActionButton(onPressed: () => cubit.request('yes'), child: const Text('YES')),
-        FloatingActionButton(onPressed: () => cubit.request(null), child: const Text('?')),
-        FloatingActionButton(onPressed: () => cubit.request('maybe'), child: const Text('MAYBE')),
+        FloatingActionButton(onPressed: () => cubit.request('yes'), heroTag: 'yes', child: const Text('YES')),
+        FloatingActionButton(onPressed: () => cubit.request(null), heroTag: '?', child: const Text('?')),
+        FloatingActionButton(onPressed: () => cubit.request('maybe'), heroTag: 'maybe', child: const Text('MAYBE')),
       ],
     );
   }

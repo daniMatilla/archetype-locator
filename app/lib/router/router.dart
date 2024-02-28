@@ -13,8 +13,8 @@ import 'package:favorite/screens/favorite.barrel.dart';
 
 part 'router.routes.dart';
 
-typedef MapRoute = Map<SharedRoutes, GoRoute>;
-typedef MapWidget = Map<SharedRoutes, Widget>;
+typedef MapScreen = Map<SharedRoutes, Widget>;
+typedef MapBranch = MapEntry<SharedRoutes, StatefulShellBranch>;
 
 final appRouter = GoRouter(
   initialLocation: SharedRoutes.home.path,
@@ -22,53 +22,32 @@ final appRouter = GoRouter(
 );
 
 final class AppRouter {
-  static late bool useShellRoute;
-  static MapRoute appRoutes = {};
   static List<RouteBase> routes = List.empty(growable: true);
 
-  static void registerRoutes({required Function() callback, bool useShellRoute = false}) {
-    AppRouter.useShellRoute = useShellRoute;
-    appRoutes.addAll(_appRoutes.map(_mapToGoRoute));
-    if (useShellRoute) {
-      routes = [
-        ..._appRoutes.map(_mapToBranch).values.map((e) => e.route).nonNulls,
-        StatefulShellRoute.indexedStack(
-          branches: _appRoutes.map(_mapToBranch).values.map((e) => e.branch).nonNulls.toList(),
-          builder: (context, state, navigationShell) => ShellRouteScreen(screen: navigationShell),
+  static void registerRoutes({required Function() callback}) {
+    routes = [
+      StatefulShellRoute.indexedStack(
+        branches: _appRoutes.map(_mapToBranch).values.toList(),
+        builder: (context, state, navigationShell) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt<FavoriteCubit>()..getLocalSamples()),
+            BlocProvider(create: (context) => getIt<SampleCubit>()),
+          ],
+          child: ShellRouteScreen(screen: navigationShell),
         ),
-      ];
-    } else {
-      routes = _appRoutes.map(_mapToGoRoute).values.toList();
-    }
+      ),
+    ];
     callback();
   }
 
-  static MapEntry<SharedRoutes, GoRoute> _mapToGoRoute(
+  static MapBranch _mapToBranch(
     SharedRoutes sharedRoutes,
     Widget widget,
   ) =>
       MapEntry(
         sharedRoutes,
-        GoRoute(name: sharedRoutes.name, path: sharedRoutes.path, builder: (context, state) => widget),
-      );
-
-  static MapEntry<SharedRoutes, ({StatefulShellBranch? branch, GoRoute? route})> _mapToBranch(
-    SharedRoutes sharedRoutes,
-    Widget widget,
-  ) =>
-      MapEntry(
-        sharedRoutes,
-        (
-          branch: sharedRoutes.isBottomBarOption >= 0
-              ? StatefulShellBranch(
-                  routes: [
-                    GoRoute(name: sharedRoutes.name, path: sharedRoutes.path, builder: (context, state) => widget),
-                  ],
-                )
-              : null,
-          route: sharedRoutes.isBottomBarOption < 0
-              ? GoRoute(name: sharedRoutes.name, path: sharedRoutes.path, builder: (context, state) => widget)
-              : null
+        StatefulShellBranch(
+          routes: [GoRoute(name: sharedRoutes.name, path: sharedRoutes.path, builder: (context, state) => widget)],
         ),
       );
 }
@@ -79,16 +58,18 @@ class ShellRouteScreen extends StatelessWidget with Navigation {
 
   @override
   Widget build(BuildContext context) {
-    final List<SharedRoutes> items = SharedRoutes.values.where((element) => element.isBottomBarOption >= 0).toList()
-      ..sort((a, b) => a.isBottomBarOption - b.isBottomBarOption);
-
     return Scaffold(
       body: screen,
-      bottomNavigationBar: CustomBottomNavigation(
-        items: items,
-        currentIndex: screen.currentIndex,
-        onTab: (sharedRoute) => setRootScreen(sharedRoute),
-      ),
+      bottomNavigationBar: useShellRoute
+          ? CustomBottomNavigation(
+              items: SharedRoutes.values,
+              currentIndex: screen.currentIndex,
+              onTab: (index) => screen.goBranch(
+                index,
+                initialLocation: index == screen.currentIndex,
+              ),
+            )
+          : null,
     );
   }
 }

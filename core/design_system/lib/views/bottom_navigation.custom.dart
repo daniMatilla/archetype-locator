@@ -10,22 +10,20 @@ class CustomBottomNavigation extends StatelessWidget {
   });
   final List<SharedRoutes> items;
   final int currentIndex;
-  final Function(SharedRoutes sharedRoute) onTab;
+  final Function(int index) onTab;
 
-  List<BottomNavigationBarItem> _bottomBarItems() =>
-      items.map((e) => BottomNavigationBarItem(icon: Icon(e.icon), label: e.name)).toList();
-
-  // SharedRoutes _currentLocation(String location) =>
-  //     items.firstWhere((element) => element.path == location, orElse: () => SharedRoutes.home);
+  List<BottomNavigationBarItem> _bottomBarItems() {
+    final sortItems = items.toList()
+      ..sort((a, b) => a.isBottomBarOption - b.isBottomBarOption)
+      ..removeWhere((element) => element.isBottomBarOption < 0);
+    return sortItems.map((e) => BottomNavigationBarItem(icon: Icon(e.icon), label: e.name)).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final location = getIt<INavigationService>().location;
-    // SharedRoutes current = _currentLocation(location);
-
     return BottomNavigationBar(
-      onTap: (index) => onTab(items[index]),
-      currentIndex: currentIndex, //items.indexOf(current),
+      onTap: (index) => onTab(index),
+      currentIndex: currentIndex,
       items: _bottomBarItems(),
     );
   }

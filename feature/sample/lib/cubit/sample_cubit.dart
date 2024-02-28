@@ -29,7 +29,7 @@ class SampleCubit extends Cubit<SampleState> with Navigation {
     }
   }
 
-  void openFavorites() => pushScreen(SharedRoutes.favorites);
+  void showFavorites() => pushScreen(SharedRoutes.favorites);
 
   Future<SampleBo?> _isLocalSample(SampleBo sample) => _repository.getLocalSample(gif: sample.urlGif);
 }

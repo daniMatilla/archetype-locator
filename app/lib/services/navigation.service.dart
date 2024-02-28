@@ -8,18 +8,12 @@ class NavigationService extends INavigationService {
 
   @override
   void pushScreen(SharedRoutes screen, {Object? params}) {
-    final routeName = AppRouter.appRoutes[screen]?.name;
-    if (routeName != null) {
-      state.pushNamed(routeName, extra: params);
-    }
+    state.pushNamed(screen.name, extra: params);
   }
 
   @override
   void setRootScreen(SharedRoutes screen) {
-    final routeName = AppRouter.appRoutes[screen]?.name;
-    if (routeName != null) {
-      state.replaceNamed(routeName);
-    }
+    state.replaceNamed(screen.name);
   }
 
   @override
