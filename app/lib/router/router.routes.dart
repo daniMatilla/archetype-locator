@@ -6,12 +6,17 @@ MapWidget _appRoutes = {
     create: (context) => getIt<FavoriteCubit>(),
     child: FavoriteScreen(),
   ),
-  SharedRoutes.favorites: BlocProvider(
-    create: (context) => getIt<FavoriteCubit>()..getLocalSamples(),
-    child: FavoritesScreen(),
-  ),
+  ..._bottomBarOptions
+};
+
+// Is there a bottom bar? Add the SharedRoutes in the order they appear and match them to the screen here...
+MapWidget _bottomBarOptions = {
   SharedRoutes.home: BlocProvider(
     create: (context) => getIt<SampleCubit>(),
     child: SampleScreen(),
+  ),
+  SharedRoutes.favorites: BlocProvider(
+    create: (context) => getIt<FavoriteCubit>()..getLocalSamples(),
+    child: FavoritesScreen(),
   ),
 };

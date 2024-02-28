@@ -13,7 +13,7 @@ setUpModules() {
   cubitModule;
 }
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   AppRouter.registerRoutes(callback: setUpModules, useShellRoute: true);
   runApp(const MainApp());
